@@ -1,3 +1,61 @@
 <resources>
     <string name="app_name">NiNoAktivities</string>
+
+    <!-- Районы -->
+    <string name="sovetsky_district">Советский район</string>
+    <string name="nizhny_novgorod_district">Нижегородский район</string>
+    <string name="prioksky_district">Приокский район</string>
+    <string name="sormovsky_district">Сормовский район</string>
+
+    <!-- Кафе -->
+    <string name="cafe_biblioteka">Библиотека</string>
+    <string name="cafe_biblioteka_desc">Уютное кафе с интеллектуальной атмосферой и большой библиотекой</string>
+
+    <string name="cafe_lepi_testo">Лепи Тесто</string>
+    <string name="cafe_lepi_testo_desc">Семейное кафе с собственной пастой и итальянской кухней</string>
+
+    <string name="cafe_karma">Карма +1</string>
+    <string name="cafe_karma_desc">Современное кафе с азиатской кухней и авторскими коктейлями</string>
+
+    <!-- Парки -->
+    <string name="park_800_letiya">Парк 800-летия НН</string>
+    <string name="park_800_letiya_desc">Современный парк с набережной, велодорожками и детскими площадками</string>
+
+    <string name="park_shveitsariya">Парк Швейцария</string>
+    <string name="park_shveitsariya_desc">Крупнейший парк города с лесными тропинками и зонами отдыха</string>
+
+    <string name="park_shchelkovsky">Щелковский хутор</string>
+    <string name="park_shchelkovsky_desc">Музей деревянного зодчества и живописный природный парк</string>
+
+    <!-- ТЦ -->
+    <string name="mall_nebo">Небо</string>
+    <string name="mall_nebo_desc">Крупный торговый центр с кинотеатром и фуд-кортом</string>
+
+    <string name="mall_fantastika">Фантастика</string>
+    <string name="mall_fantastika_desc">Современный ТЦ с детскими развлечениями и магазинами</string>
+
+    <string name="mall_rio">Рио</string>
+    <string name="mall_rio_desc">Торгово-развлекательный комплекс на Московском шоссе</string>
+
+    <!-- Детские места -->
+    <string name="kids_ostrov_geroev">Остров Героев</string>
+    <string name="kids_ostrov_geroev_desc">Интерактивный парк приключений для детей и взрослых</string>
+
+    <string name="kids_kosmopark">Космопарк</string>
+    <string name="kids_kosmopark_desc">Космический парк развлечений с аттракционами и квестами</string>
+
+    <string name="kids_atlantida">Атлантида</string>
+    <string name="kids_atlantida_desc">Развлекательный центр с игровыми автоматами и кафе</string>
+
+    <string name="zoo_limpopo">Зоопарк Лимпопо</string>
+    <string name="zoo_limpopo_desc">Один из крупнейших зоопарков в России с экзотическими животными</string>
+
+    <string name="aquapark_okeanis">Аквапарк Океанис</string>
+    <string name="aquapark_okeanis_desc">Крытый аквапарк с горками и бассейнами для всей семьи</string>
+
+    <string name="planetarium">Нижегородский планетарий</string>
+    <string name="planetarium_desc">Современный планетарий с увлекательными шоу о космосе</string>
+
+    <string name="cable_road">Нижегородская канатная дорога</string>
+    <string name="cable_road_desc">Самая длинная в Европе канатная дорога над Волгой</string>
 </resources>
