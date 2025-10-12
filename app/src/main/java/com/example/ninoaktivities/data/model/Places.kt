@@ -10,6 +10,7 @@ sealed class Place {
     abstract val address: String
     abstract val rating: Float
     abstract val photos: List<Int>
+    abstract val isFavorite: Boolean
 }
 
 data class Cafe(
@@ -19,6 +20,7 @@ data class Cafe(
     override val address: String,
     override val rating: Float,
     override val photos: List<Int>,
+    override val isFavorite: Boolean = false,
     val cuisine: String,
     val averageCheck: String,
     val hasWifi: Boolean
@@ -31,6 +33,7 @@ data class Park(
     override val address: String,
     override val rating: Float,
     override val photos: List<Int>,
+    override val isFavorite: Boolean = false,
     val area: Float,
     @StringRes val district: Int
 ) : Place()
@@ -42,6 +45,7 @@ data class Mall(
     override val address: String,
     override val rating: Float,
     override val photos: List<Int>,
+    override val isFavorite: Boolean = false,
     val workingHours: String,
 ) : Place()
 
@@ -52,6 +56,7 @@ data class KidFriendly(
     override val address: String,
     override val rating: Float,
     override val photos: List<Int>,
+    override val isFavorite: Boolean = false,
     val minAge: Int,
     val isFree: Boolean
 ) : Place()
