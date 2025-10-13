@@ -16,28 +16,36 @@ class PlaceRepository {
     val placesFlow = _placesFlow.asStateFlow()
 
     fun toggleFavorite(place: Place) {
-        _placesFlow.value = _placesFlow.value.map { place ->
-            if (place == place) {
-                when (place) {
-                    is Cafe -> place.copy(isFavorite = !place.isFavorite)
-                    is Park -> place.copy(isFavorite = !place.isFavorite)
-                    is Mall -> place.copy(isFavorite = !place.isFavorite)
-                    is KidFriendly -> place.copy(isFavorite = !place.isFavorite)
+        _placesFlow.value = _placesFlow.value.map { cur_place ->
+            if (cur_place == place) {
+                when (cur_place) {
+                    is Cafe -> cur_place.copy(isFavorite = !place.isFavorite)
+                    is Park -> cur_place.copy(isFavorite = !place.isFavorite)
+                    is Mall -> cur_place.copy(isFavorite = !place.isFavorite)
+                    is KidFriendly -> cur_place.copy(isFavorite = !place.isFavorite)
                 }
-            } else { place }
+            } else { cur_place }
         }
     }
 
-    fun whichType(place: Place): PlaceType {
-        return when (place) {
-            is Cafe -> PlaceType.CAFE
-            is Park -> PlaceType.PARK
-            is Mall -> PlaceType.MALL
-            is KidFriendly -> PlaceType.KID_FRIENDLY
-        }
+    fun whichType(place: Place): PlaceType = when (place) {
+        is Cafe -> PlaceType.CAFE
+        is Park -> PlaceType.PARK
+        is Mall -> PlaceType.MALL
+        is KidFriendly -> PlaceType.KID_FRIENDLY
     }
+
+
 
     fun toMapOnType(): Map<PlaceType, List<Place>> {
         return _placesFlow.value.groupBy { whichType(it)}
+    }
+
+    fun shufflePlaces(): List<Place> {
+        return _placesFlow.value.shuffled()
+    }
+
+    fun favoritePlaces() : List<Place> {
+        return _placesFlow.value.filter { it.isFavorite }
     }
 }
