@@ -75,8 +75,7 @@ class CityViewModel : ViewModel() {
     fun resetHomeStates() {
         _uiState.update {
             it.copy(
-                currentPlace = placesByScreen[IconType.ALL]?.get(0) ?: data.placesFlow.value.get(0),
-                currentIconType = IconType.ALL,
+                currentPlace = placesByScreen[_uiState.value.currentIconType]?.get(0) ?: data.placesFlow.value.get(0),
                 isHome = true
             )
         }
