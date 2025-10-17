@@ -58,4 +58,11 @@
 
     <string name="cable_road">Нижегородская канатная дорога</string>
     <string name="cable_road_desc">Самая длинная в Европе канатная дорога над Волгой</string>
+
+    <string name="home">Все</string>
+    <string name="cafe">Кафе</string>
+    <string name="park">Парки</string>
+    <string name="mall">Торговые центры</string>
+    <string name="kid_friendly">Места для детей</string>
+    <string name="favorite">Избранное</string>
 </resources>

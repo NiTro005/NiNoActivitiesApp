@@ -68,6 +68,8 @@ class CityViewModel : ViewModel() {
         currentPlaces.value = placesByScreen[icon]
     }
 
+    fun clickOnStar(place: Place) = data.toggleFavorite(place)
+
     fun resetHomeStates() {
         _uiState.update {
             it.copy(
