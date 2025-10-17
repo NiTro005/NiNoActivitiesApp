@@ -33,23 +33,24 @@ val AppTypography = Typography(
     ),
     displaySmall = TextStyle(
         fontFamily = Montserrat,
-        fontWeight = FontWeight.Normal,
-        fontSize = 30.sp
+        fontWeight = FontWeight.Thin,
+        fontStyle = FontStyle.Italic,
+        fontSize = 25.sp
     ),
     headlineMedium = TextStyle(
         fontFamily = Montserrat,
         fontWeight = FontWeight.Normal,
-        fontSize = 26.sp
+        fontSize = 20.sp
     ),
     titleLarge = TextStyle(
         fontFamily = Montserrat,
         fontWeight = FontWeight.Normal,
-        fontSize = 20.sp
+        fontSize = 15.sp
     ),
     titleSmall = TextStyle(
         fontFamily = Montserrat,
         fontStyle = FontStyle.Italic,
-        fontSize = 18.sp
+        fontSize = 14.sp
     ),
     bodyLarge = TextStyle(
         fontFamily = Roboto,

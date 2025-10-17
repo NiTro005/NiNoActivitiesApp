@@ -2,14 +2,21 @@ package com.example.ninoaktivities.ui
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.asPaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.safeDrawing
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AttachMoney
@@ -51,6 +58,7 @@ import com.example.ninoaktivities.data.model.Park
 import com.example.ninoaktivities.data.model.Place
 import com.example.ninoaktivities.ui.utils.IconType
 import java.nio.file.WatchEvent
+import com.example.ninoaktivities.R
 
 @Composable
 fun OnlyListContent(
@@ -59,7 +67,52 @@ fun OnlyListContent(
     onStarPressed: (Place) -> Unit,
     modifier: Modifier = Modifier
 ) {
-    var orientation by rememberSaveable { mutableStateOf(true) }
+    val places = uiState.currentPlaces
+    LazyColumn(
+        modifier = modifier,
+        contentPadding = WindowInsets.safeDrawing.asPaddingValues(),
+        verticalArrangement = Arrangement.spacedBy(8.dp)
+    ) {
+        item {
+            CityItemsHeader(
+                modifier = Modifier.fillMaxWidth()
+            )
+        }
+        itemsIndexed(places, key = {index, place -> place.id}) {index,  place ->
+            val orientation = index % 2 == 0
+            PlaceCard(
+                place = place,
+                selected = false,
+                orientation = orientation,
+                onCardPressed = { onCardPressed(place) },
+                onStarPressed = { onStarPressed(place) },
+                isFavorite = place.isFavorite,
+                modifier = Modifier.height(130.dp)
+            )
+        }
+    }
+}
+
+@Composable
+fun CityItemsHeader(modifier: Modifier = Modifier) {
+    Row(modifier = modifier.height(56.dp), verticalAlignment = Alignment.CenterVertically) {
+        Text(
+            text = "NiNo",
+            style = MaterialTheme.typography.displayMedium,
+            color = MaterialTheme.colorScheme.onSurface
+        )
+        Text(
+            text = "activities",
+            style = MaterialTheme.typography.displaySmall,
+            modifier = Modifier.padding(end = 8.dp),
+            color = MaterialTheme.colorScheme.onSurfaceVariant
+        )
+        Image(
+            painter = painterResource(R.drawable.park_rides),
+            contentDescription = null,
+            contentScale = ContentScale.Crop
+        )
+    }
 }
 
 @Composable
@@ -75,10 +128,10 @@ fun PlaceCard(
     Card(
         modifier = modifier,
         colors = CardDefaults.cardColors(
-            containerColor = if (selected)
+            containerColor = if (!selected)
                     MaterialTheme.colorScheme.primaryContainer
                 else
-                    MaterialTheme.colorScheme.secondaryContainer
+                    MaterialTheme.colorScheme.tertiaryContainer
         ),
         onClick = onCardPressed
     ) {
@@ -133,14 +186,14 @@ fun PlaceContentOnCard(
                 address = place.address,
                 modifier = Modifier
                 .weight(1f)
-                .padding(16.dp))
+                .padding(8.dp))
         } else {
             PlaceText(
                 title = stringResource(place.nameRes),
                 address = place.address,
                 modifier = Modifier
                     .weight(1f)
-                    .padding(16.dp))
+                    .padding(8.dp))
             DrawImage(place, Modifier.weight(1f), serviсe = service)
         }
     }
@@ -178,6 +231,8 @@ fun DrawImage(
     modifier: Modifier = Modifier,
     serviсe: ImageVector? = null
 ) {
+    val backgroundColor = MaterialTheme.colorScheme.surface
+    val textColor = MaterialTheme.colorScheme.onSurface
     Box(modifier = modifier) {
         Image(
             painter = painterResource(place.photos.get(0)),
@@ -191,11 +246,11 @@ fun DrawImage(
                 modifier = Modifier.align(Alignment.BottomStart)
                     .padding(4.dp)
                     .background(
-                        color = Color.Black.copy(alpha = 0.5f),
+                        color = backgroundColor.copy(alpha = 0.4f),
                         shape = RoundedCornerShape(4.dp)
                     )
                     .size(30.dp),
-                tint = MaterialTheme.colorScheme.inverseOnSurface
+                tint = textColor
             )
         }
         Text(
@@ -204,10 +259,10 @@ fun DrawImage(
             modifier = Modifier.align(Alignment.BottomEnd)
                 .padding(4.dp)
                 .background(
-                    color = Color.Black.copy(alpha = 0.5f),
+                    color = backgroundColor.copy(alpha = 0.4f),
                     shape = RoundedCornerShape(4.dp)
                 ),
-            color = MaterialTheme.colorScheme.inverseOnSurface
+            color = textColor
         )
     }
 }
@@ -231,10 +286,10 @@ fun PlaceCardPreview() {
 @Preview(name = "Place card reversed")
 @Composable
 fun PlaceCardReversedPreview() {
-    AppTheme {
+    AppTheme(darkTheme = true) {
         PlaceCard(
             place = LocalPlacesDataProvider.places.get(10),
-            selected = true,
+            selected = false,
             onCardPressed = { },
             onStarPressed =  { },
             orientation = false,
@@ -243,3 +298,4 @@ fun PlaceCardReversedPreview() {
         )
     }
 }
+

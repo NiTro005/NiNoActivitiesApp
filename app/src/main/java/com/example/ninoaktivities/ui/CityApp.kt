@@ -12,5 +12,10 @@ fun CityApp(
 ) {
     val viewModel: CityViewModel = viewModel()
     val cityUiState = viewModel.uiState.collectAsState().value
-
+    HomeScreen(
+        uiState = cityUiState,
+        onTabPressed = {},
+        onCardPressed = {},
+        onStarPressed = {}
+    )
 }

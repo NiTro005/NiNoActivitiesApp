@@ -2,7 +2,9 @@ package com.example.ninoaktivities.ui
 
 import android.graphics.drawable.Icon
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.*
 import androidx.compose.material3.Icon
@@ -13,10 +15,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import com.example.compose.AppTheme
 import com.example.ninoaktivities.R
+import com.example.ninoaktivities.data.datasourse.LocalPlacesDataProvider
 import com.example.ninoaktivities.data.model.Place
 import com.example.ninoaktivities.ui.utils.IconType
+import java.nio.file.WatchEvent
 
 @Composable
 fun HomeScreen(
@@ -40,7 +45,8 @@ fun HomeScreen(
             navItemList = navItemList,
             onTabPressed = onTabPressed,
             onCardPressed = onCardPressed,
-            onStarPressed = onStarPressed
+            onStarPressed = onStarPressed,
+            modifier = Modifier.fillMaxSize()
         )
     } else {
         DetailScreen()
@@ -57,10 +63,17 @@ fun CityAppContent(
     modifier: Modifier = Modifier
 ) {
     Column(modifier = modifier) {
+        OnlyListContent(
+            uiState = uiState,
+            onCardPressed = onCardPressed,
+            onStarPressed = onStarPressed,
+            modifier = Modifier.padding(horizontal = 16.dp).weight(1f)
+        )
         CityBottomBar(
             currentItemType = uiState.currentIconType,
             navItemList = navItemList,
-            onTabPressed = onTabPressed
+            onTabPressed = onTabPressed,
+            modifier = Modifier.fillMaxWidth()
         )
     }
 }
@@ -94,12 +107,16 @@ data class NavItem (
     val text: String
 )
 
-@Preview(name = "Bottom bar")
+
+@Preview(name = "CardListPlaces")
 @Composable
-fun BottomBarPreview() {
-    AppTheme {
-        CityBottomBar(
-            currentItemType = IconType.ALL,
+fun CardListPreview() {
+    AppTheme(darkTheme = true) {
+        val uiState = CityUiState(currentPlaces = LocalPlacesDataProvider.places)
+        CityAppContent(
+            uiState = uiState,
+            onCardPressed = {},
+            onStarPressed = {},
             navItemList = listOf<NavItem>(
                 NavItem(
                     type = IconType.ALL,
@@ -132,8 +149,7 @@ fun BottomBarPreview() {
                     text = stringResource(R.string.favorite)
                 )
             ),
-            onTabPressed =  { },
-            modifier = Modifier.fillMaxWidth(),
+            onTabPressed = {},
         )
     }
 }

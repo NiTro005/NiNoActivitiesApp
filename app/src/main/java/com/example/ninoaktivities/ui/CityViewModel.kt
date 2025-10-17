@@ -1,8 +1,8 @@
 package com.example.ninoaktivities.ui
 
-import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import com.example.ninoaktivities.data.PlaceType
+import com.example.ninoaktivities.data.datasourse.LocalPlacesDataProvider
 import com.example.ninoaktivities.data.model.Place
 import com.example.ninoaktivities.data.repository.PlaceRepository
 import com.example.ninoaktivities.ui.utils.IconType
@@ -19,14 +19,16 @@ class CityViewModel : ViewModel() {
         data.favoritePlaces()
     )
 
-    var currentPlaces = mutableStateOf(placesByScreen[IconType.ALL])
-        private set
+
     private val _uiState = MutableStateFlow(CityUiState())
     val uiState = _uiState.asStateFlow()
 
     init {
         _uiState.update {
-            it.copy(currentPlace = currentPlaces.value?.get(0) ?: data.placesFlow.value.get(0))
+            it.copy(
+                currentPlaces = placesByScreen[IconType.ALL] ?: emptyList(),
+                currentPlace = placesByScreen[IconType.ALL]?.get(0) ?: LocalPlacesDataProvider.defaultPlace
+            )
         }
     }
 
@@ -62,10 +64,10 @@ class CityViewModel : ViewModel() {
     fun clickOnIcon(icon: IconType) {
         _uiState.update {
             it.copy(
-                currentIconType = icon
+                currentIconType = icon,
+                currentPlaces = placesByScreen[icon] ?: emptyList()
             )
         }
-        currentPlaces.value = placesByScreen[icon]
     }
 
     fun clickOnStar(place: Place) = data.toggleFavorite(place)
@@ -75,7 +77,7 @@ class CityViewModel : ViewModel() {
             it.copy(
                 currentPlace = placesByScreen[IconType.ALL]?.get(0) ?: data.placesFlow.value.get(0),
                 currentIconType = IconType.ALL,
-                isHome = false
+                isHome = true
             )
         }
     }

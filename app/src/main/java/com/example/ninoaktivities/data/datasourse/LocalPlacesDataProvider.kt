@@ -8,6 +8,20 @@ import com.example.ninoaktivities.data.model.Park
 import com.example.ninoaktivities.data.model.Place
 
 object LocalPlacesDataProvider {
+
+    val defaultPlace = Cafe(
+        id = -1,
+        nameRes = -1,
+        description = -1,
+        address = "",
+        rating = 0.0f,
+        photos = emptyList(),
+        isFavorite = false,
+        cuisine = "",
+        averageCheck = "",
+        hasWifi = false
+    )
+
     val places = listOf(
         // КАФЕ
         Cafe(
