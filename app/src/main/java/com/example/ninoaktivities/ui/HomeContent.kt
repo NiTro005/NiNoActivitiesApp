@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.asPaddingValues
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -78,18 +79,34 @@ fun OnlyListContent(
                 modifier = Modifier.fillMaxWidth()
             )
         }
-        itemsIndexed(places, key = {index, place -> place.id}) {index,  place ->
-            val orientation = index % 2 == 0
-            PlaceCard(
-                place = place,
-                selected = false,
-                orientation = orientation,
-                onCardPressed = { onCardPressed(place) },
-                onStarPressed = { onStarPressed(place) },
-                isFavorite = place.isFavorite,
-                modifier = Modifier.height(130.dp)
-            )
+        if(places.isNotEmpty()) {
+            itemsIndexed(places, key = { index, place -> place.id }) { index, place ->
+                val orientation = index % 2 == 0
+                PlaceCard(
+                    place = place,
+                    selected = false,
+                    orientation = orientation,
+                    onCardPressed = { onCardPressed(place) },
+                    onStarPressed = { onStarPressed(place) },
+                    isFavorite = place.isFavorite,
+                    modifier = Modifier.height(130.dp)
+                )
+            }
+        } else {
+            item {
+                EmptyListMessage(modifier = Modifier.fillMaxSize())
+            }
         }
+    }
+}
+
+@Composable
+fun EmptyListMessage(modifier: Modifier = Modifier) {
+    Box(modifier = modifier, contentAlignment = Alignment.Center) {
+        Text(
+            text = "Здесь пока пусто",
+            style = MaterialTheme.typography.displaySmall
+        )
     }
 }
 

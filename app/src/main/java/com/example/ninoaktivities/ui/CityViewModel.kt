@@ -13,20 +13,19 @@ import kotlinx.coroutines.flow.update
 class CityViewModel : ViewModel() {
     private val data = PlaceRepository()
 
-    private val placesByScreen: Map<IconType, List<Place>> = createMapPlacesScreen(
-        data.toMapOnType(),
-        data.shufflePlaces(),
-        data.favoritePlaces()
-    )
-
 
     private val _uiState = MutableStateFlow(CityUiState())
     val uiState = _uiState.asStateFlow()
 
     init {
+        val placesByScreen = createMapPlacesScreen(
+            data.toMapOnType(),
+            data.shufflePlaces(),
+            data.favoritePlaces()
+        )
         _uiState.update {
             it.copy(
-                currentPlaces = placesByScreen[IconType.ALL] ?: emptyList(),
+                placesByScreen = placesByScreen,
                 currentPlace = placesByScreen[IconType.ALL]?.get(0) ?: LocalPlacesDataProvider.defaultPlace
             )
         }
@@ -64,18 +63,29 @@ class CityViewModel : ViewModel() {
     fun clickOnIcon(icon: IconType) {
         _uiState.update {
             it.copy(
-                currentIconType = icon,
-                currentPlaces = placesByScreen[icon] ?: emptyList()
+                currentIconType = icon
             )
         }
     }
 
-    fun clickOnStar(place: Place) = data.toggleFavorite(place)
+    fun clickOnStar(place: Place) {
+        data.toggleFavorite(place)
+        _uiState.update {
+            it.copy(
+                placesByScreen = createMapPlacesScreen(
+                    data.toMapOnType(),
+                    data.shufflePlaces(),
+                    data.favoritePlaces()
+                )
+            )
+        }
+    }
+
 
     fun resetHomeStates() {
         _uiState.update {
             it.copy(
-                currentPlace = placesByScreen[_uiState.value.currentIconType]?.get(0) ?: data.placesFlow.value.get(0),
+                currentPlace = it.placesByScreen[it.currentIconType]?.get(0) ?: LocalPlacesDataProvider.defaultPlace,
                 isHome = true
             )
         }

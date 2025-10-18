@@ -10,19 +10,21 @@ import com.example.ninoaktivities.data.model.Place
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.toList
+import kotlin.random.Random
 
 class PlaceRepository {
     private val _placesFlow = MutableStateFlow<List<Place>>(LocalPlacesDataProvider.places)
     val placesFlow = _placesFlow.asStateFlow()
+    val randomSeed = Random(150)
 
     fun toggleFavorite(place: Place) {
         _placesFlow.value = _placesFlow.value.map { cur_place ->
-            if (cur_place == place) {
+            if (cur_place.id == place.id) {
                 when (cur_place) {
-                    is Cafe -> cur_place.copy(isFavorite = !place.isFavorite)
-                    is Park -> cur_place.copy(isFavorite = !place.isFavorite)
-                    is Mall -> cur_place.copy(isFavorite = !place.isFavorite)
-                    is KidFriendly -> cur_place.copy(isFavorite = !place.isFavorite)
+                    is Cafe -> cur_place.copy(isFavorite = !cur_place.isFavorite)
+                    is Park -> cur_place.copy(isFavorite = !cur_place.isFavorite)
+                    is Mall -> cur_place.copy(isFavorite = !cur_place.isFavorite)
+                    is KidFriendly -> cur_place.copy(isFavorite = !cur_place.isFavorite)
                 }
             } else { cur_place }
         }
@@ -42,7 +44,7 @@ class PlaceRepository {
     }
 
     fun shufflePlaces(): List<Place> {
-        return _placesFlow.value.shuffled()
+        return _placesFlow.value.shuffled(randomSeed)
     }
 
     fun favoritePlaces() : List<Place> {
