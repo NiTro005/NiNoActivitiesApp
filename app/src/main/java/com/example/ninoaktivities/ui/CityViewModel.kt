@@ -20,7 +20,7 @@ class CityViewModel : ViewModel() {
     init {
         val placesByScreen = createMapPlacesScreen(
             data.toMapOnType(),
-            data.shufflePlaces(),
+            data.allPlaces(),
             data.favoritePlaces()
         )
         _uiState.update {
@@ -74,7 +74,7 @@ class CityViewModel : ViewModel() {
             it.copy(
                 placesByScreen = createMapPlacesScreen(
                     data.toMapOnType(),
-                    data.shufflePlaces(),
+                    data.allPlaces(),
                     data.favoritePlaces()
                 )
             )
@@ -85,7 +85,8 @@ class CityViewModel : ViewModel() {
     fun resetHomeStates() {
         _uiState.update {
             it.copy(
-                currentPlace = it.placesByScreen[it.currentIconType]?.get(0) ?: LocalPlacesDataProvider.defaultPlace,
+                currentPlace = if (it.placesByScreen[it.currentIconType]!!.isNotEmpty())
+                    it.placesByScreen[it.currentIconType]!!.get(0) else return,
                 isHome = true
             )
         }

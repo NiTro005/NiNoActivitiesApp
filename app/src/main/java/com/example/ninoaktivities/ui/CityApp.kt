@@ -16,6 +16,7 @@ fun CityApp(
         uiState = cityUiState,
         onTabPressed = { icon ->
             viewModel.clickOnIcon(icon)
+            viewModel.resetHomeStates()
         },
         onCardPressed = {},
         onStarPressed = { place ->

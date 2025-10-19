@@ -40,7 +40,7 @@ val AppTypography = Typography(
     headlineMedium = TextStyle(
         fontFamily = Montserrat,
         fontWeight = FontWeight.Normal,
-        fontSize = 20.sp
+        fontSize = 18.sp
     ),
     titleLarge = TextStyle(
         fontFamily = Montserrat,

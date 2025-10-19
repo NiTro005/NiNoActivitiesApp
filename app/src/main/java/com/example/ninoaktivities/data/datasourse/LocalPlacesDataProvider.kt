@@ -181,4 +181,5 @@ object LocalPlacesDataProvider {
             isFree = false
         )
     )
+        get() = field.shuffled()
 }
