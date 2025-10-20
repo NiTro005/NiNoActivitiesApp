@@ -40,17 +40,17 @@ val AppTypography = Typography(
     headlineMedium = TextStyle(
         fontFamily = Montserrat,
         fontWeight = FontWeight.Normal,
-        fontSize = 18.sp
+        fontSize = 17.sp
     ),
     titleLarge = TextStyle(
         fontFamily = Montserrat,
         fontWeight = FontWeight.Normal,
-        fontSize = 15.sp
+        fontSize = 14.sp
     ),
     titleSmall = TextStyle(
         fontFamily = Montserrat,
         fontStyle = FontStyle.Italic,
-        fontSize = 14.sp
+        fontSize = 12.sp
     ),
     bodyLarge = TextStyle(
         fontFamily = Roboto,

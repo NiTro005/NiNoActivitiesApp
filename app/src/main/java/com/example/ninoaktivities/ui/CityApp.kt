@@ -4,7 +4,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.example.ninoaktivities.ui.CityViewModel
 
 @Composable
 fun CityApp(
@@ -18,9 +17,14 @@ fun CityApp(
             viewModel.clickOnIcon(icon)
             viewModel.resetHomeStates()
         },
-        onCardPressed = {},
+        onCardPressed = { place ->
+            viewModel.clickOnPlace(place)
+        },
         onStarPressed = { place ->
             viewModel.clickOnStar(place)
+        },
+        onBackPressed = {
+            viewModel.resetHomeStates()
         }
     )
 }

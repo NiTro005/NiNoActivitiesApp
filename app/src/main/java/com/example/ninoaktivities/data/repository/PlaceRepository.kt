@@ -7,10 +7,9 @@ import com.example.ninoaktivities.data.model.KidFriendly
 import com.example.ninoaktivities.data.model.Mall
 import com.example.ninoaktivities.data.model.Park
 import com.example.ninoaktivities.data.model.Place
+import com.example.ninoaktivities.data.whichType
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.toList
-import kotlin.random.Random
 
 class PlaceRepository {
     private val _placesFlow = MutableStateFlow<List<Place>>(LocalPlacesDataProvider.places)
@@ -29,17 +28,8 @@ class PlaceRepository {
         }
     }
 
-    fun whichType(place: Place): PlaceType = when (place) {
-        is Cafe -> PlaceType.CAFE
-        is Park -> PlaceType.PARK
-        is Mall -> PlaceType.MALL
-        is KidFriendly -> PlaceType.KID_FRIENDLY
-    }
-
-
-
     fun toMapOnType(): Map<PlaceType, List<Place>> {
-        return _placesFlow.value.groupBy { whichType(it)}
+        return _placesFlow.value.groupBy { it.whichType()}
     }
 
     fun allPlaces(): List<Place> {

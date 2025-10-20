@@ -65,4 +65,5 @@
     <string name="mall">Торговые центры</string>
     <string name="kid_friendly">Места для детей</string>
     <string name="favorite">Избранное</string>
+    <string name="back">Back</string>
 </resources>

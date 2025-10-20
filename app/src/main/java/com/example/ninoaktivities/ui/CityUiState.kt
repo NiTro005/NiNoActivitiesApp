@@ -1,6 +1,5 @@
 package com.example.ninoaktivities.ui
 
-import androidx.annotation.GuardedBy
 import com.example.ninoaktivities.data.datasourse.LocalPlacesDataProvider
 import com.example.ninoaktivities.data.model.Place
 import com.example.ninoaktivities.ui.utils.IconType

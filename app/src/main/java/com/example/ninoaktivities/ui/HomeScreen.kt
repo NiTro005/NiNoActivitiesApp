@@ -1,12 +1,16 @@
 package com.example.ninoaktivities.ui
 
-import android.graphics.drawable.Icon
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.*
+import androidx.compose.material.icons.outlined.ChildFriendly
+import androidx.compose.material.icons.outlined.Coffee
+import androidx.compose.material.icons.outlined.Home
+import androidx.compose.material.icons.outlined.LocalMall
+import androidx.compose.material.icons.outlined.Nature
+import androidx.compose.material.icons.outlined.Star
 import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
@@ -14,14 +18,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.compose.AppTheme
 import com.example.ninoaktivities.R
-import com.example.ninoaktivities.data.datasourse.LocalPlacesDataProvider
 import com.example.ninoaktivities.data.model.Place
 import com.example.ninoaktivities.ui.utils.IconType
-import java.nio.file.WatchEvent
 
 @Composable
 fun HomeScreen(
@@ -29,6 +29,7 @@ fun HomeScreen(
     onTabPressed: (IconType) -> Unit,
     onCardPressed: (Place) -> Unit,
     onStarPressed: (Place) -> Unit,
+    onBackPressed: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     val navItemList = listOf<NavItem>(
@@ -49,7 +50,11 @@ fun HomeScreen(
             modifier = Modifier.fillMaxSize()
         )
     } else {
-        DetailScreen()
+        DetailScreen(
+            uiState.currentPlace,
+            onBackPressed = onBackPressed,
+            modifier = Modifier.fillMaxSize()
+        )
     }
 }
 
