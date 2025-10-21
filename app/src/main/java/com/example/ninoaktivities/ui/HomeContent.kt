@@ -1,5 +1,7 @@
 package com.example.ninoaktivities.ui
 
+import android.annotation.SuppressLint
+import android.app.Activity
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -14,6 +16,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawing
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.statusBars
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
@@ -35,10 +38,12 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.computeHorizontalBounds
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -88,6 +93,49 @@ fun OnlyListContent(
                 EmptyListMessage(modifier = Modifier.fillMaxSize())
             }
         }
+    }
+}
+
+@Composable
+fun ListAndDetailContent(
+    uiState: CityUiState,
+    onCardPressed: (Place) -> Unit,
+    onStarPressed: (Place) -> Unit,
+    modifier: Modifier = Modifier
+) {
+    val places = uiState.currentPlaces
+    val context = LocalContext.current
+    Row(modifier = modifier) {
+        LazyColumn(
+            modifier = Modifier.weight(1f).padding(horizontal = 16.dp),
+            contentPadding = WindowInsets.statusBars.asPaddingValues(),
+            verticalArrangement = Arrangement.spacedBy(8.dp)
+        ) {
+            if (places.isNotEmpty()) {
+                itemsIndexed(places, key = { index, place -> place.id }) { index, place ->
+                    val orientation = index % 2 == 0
+                    PlaceCard(
+                        place = place,
+                        selected = uiState.currentPlace == place,
+                        orientation = orientation,
+                        onCardPressed = { onCardPressed(place) },
+                        onStarPressed = { onStarPressed(place) },
+                        isFavorite = place.isFavorite,
+                        modifier = Modifier.height(130.dp).animateItem()
+                    )
+                }
+            } else {
+                item {
+                    EmptyListMessage(modifier = Modifier.fillMaxSize())
+                }
+            }
+        }
+        DetailScreen(
+            place = uiState.currentPlace,
+            onBackPressed = { (context  as? Activity)?.finish()},
+            modifier = Modifier.weight(1f),
+            isFullScreen = true
+        )
     }
 }
 

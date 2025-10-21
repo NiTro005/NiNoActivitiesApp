@@ -38,33 +38,45 @@ import com.example.ninoaktivities.data.model.Place
 
 @Composable
 fun DetailScreen(
-    place: Place,
+    place: Place?,
     onBackPressed: () -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    isFullScreen: Boolean = false
 ) {
 
     BackHandler {
         onBackPressed()
     }
     Column(modifier = modifier) {
-        DetailScreenTop(
-            title = stringResource(place.nameRes),
-            onBackPressed = onBackPressed
-        )
-        LazyRow {
-            items(place.photos) { photo ->
-                Image(
-                    painter = painterResource(photo),
-                    modifier = Modifier.height(250.dp).padding(end = 4.dp),
-                    contentDescription = null,
-                    contentScale = ContentScale.Inside
+        if(place != null) {
+            if (!isFullScreen) {
+                DetailScreenTop(
+                    title = stringResource(place.nameRes),
+                    onBackPressed = onBackPressed
                 )
             }
-        }
-        Column(modifier = Modifier.padding(24.dp), verticalArrangement = Arrangement.SpaceEvenly) {
-            TextInformation("Адресс:", place.address, Modifier.padding(8.dp))
-            DetailPlaceTypeContent(place, Modifier.padding(8.dp))
-            TextInformation("Описание:", stringResource(place.description), Modifier.padding(8.dp))
+            LazyRow {
+                items(place.photos) { photo ->
+                    Image(
+                        painter = painterResource(photo),
+                        modifier = Modifier.height(250.dp).padding(end = 4.dp),
+                        contentDescription = null,
+                        contentScale = ContentScale.Inside
+                    )
+                }
+            }
+            Column(
+                modifier = Modifier.padding(24.dp),
+                verticalArrangement = Arrangement.SpaceEvenly
+            ) {
+                TextInformation("Адресс:", place.address, Modifier.padding(8.dp))
+                DetailPlaceTypeContent(place, Modifier.padding(8.dp))
+                TextInformation(
+                    "Описание:",
+                    stringResource(place.description),
+                    Modifier.padding(8.dp)
+                )
+            }
         }
     }
 }

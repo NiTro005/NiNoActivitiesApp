@@ -86,7 +86,7 @@ class CityViewModel : ViewModel() {
         _uiState.update {
             it.copy(
                 currentPlace = if (it.placesByScreen[it.currentIconType]!!.isNotEmpty())
-                    it.placesByScreen[it.currentIconType]!!.get(0) else return,
+                    it.placesByScreen[it.currentIconType]!!.first() else null,
                 isHome = true
             )
         }

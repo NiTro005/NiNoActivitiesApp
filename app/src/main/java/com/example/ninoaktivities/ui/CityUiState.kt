@@ -7,7 +7,7 @@ import com.example.ninoaktivities.ui.utils.IconType
 data class CityUiState (
     val placesByScreen: Map<IconType, List<Place>> = emptyMap(),
     val currentIconType: IconType = IconType.ALL,
-    val currentPlace: Place = LocalPlacesDataProvider.defaultPlace,
+    val currentPlace: Place? = LocalPlacesDataProvider.defaultPlace,
 
     val isHome: Boolean = true
 ) {

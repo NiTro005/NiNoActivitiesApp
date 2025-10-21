@@ -103,7 +103,7 @@ fun HomeScreen(
             )
         } else {
             DetailScreen(
-                uiState.currentPlace,
+                place = uiState.currentPlace,
                 onBackPressed = onBackPressed,
                 modifier = Modifier.fillMaxSize()
             )
@@ -140,7 +140,12 @@ fun CityAppContent(
                     modifier = Modifier.padding(horizontal = 16.dp).weight(1f)
                 )
             } else {
-                TODO()
+                ListAndDetailContent(
+                    uiState = uiState,
+                    onCardPressed = onCardPressed,
+                    onStarPressed = onStarPressed,
+                    modifier = Modifier.padding(horizontal = 16.dp).weight(1f)
+                )
             }
             AnimatedVisibility(visible = navigationType == CityNavigationType.BOTTOM) {
                 CityBottomBar(
