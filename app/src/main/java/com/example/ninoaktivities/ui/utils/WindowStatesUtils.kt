@@ -8,3 +8,11 @@ enum class IconType {
     KID_FRIENDLY,
     FAVORITE
 }
+
+enum class CityContentType {
+    LIST, LIST_AND_DETAIL
+}
+
+enum class CityNavigationType {
+    BOTTOM, RAIL, DRAWER
+}

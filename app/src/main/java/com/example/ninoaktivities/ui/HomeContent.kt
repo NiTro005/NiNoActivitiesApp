@@ -14,6 +14,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawing
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -30,9 +31,12 @@ import androidx.compose.material3.LocalContentColor
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
@@ -63,7 +67,7 @@ fun OnlyListContent(
     ) {
         item {
             CityItemsHeader(
-                modifier = Modifier.fillMaxWidth()
+                modifier = Modifier.height(60.dp).fillMaxWidth()
             )
         }
         if(places.isNotEmpty()) {
@@ -76,7 +80,7 @@ fun OnlyListContent(
                     onCardPressed = { onCardPressed(place) },
                     onStarPressed = { onStarPressed(place) },
                     isFavorite = place.isFavorite,
-                    modifier = Modifier.height(130.dp)
+                    modifier = Modifier.height(130.dp).animateItem()
                 )
             }
         } else {
@@ -98,8 +102,13 @@ fun EmptyListMessage(modifier: Modifier = Modifier) {
 }
 
 @Composable
-fun CityItemsHeader(modifier: Modifier = Modifier) {
-    Row(modifier = modifier.height(56.dp), verticalAlignment = Alignment.CenterVertically) {
+fun CityItemsHeader(modifier: Modifier = Modifier, scale: Float = 1f) {
+    Row(
+        modifier = modifier.graphicsLayer(
+            scaleX = scale,
+            scaleY = scale
+        ),
+        verticalAlignment = Alignment.CenterVertically) {
         Text(
             text = "NiNo",
             style = MaterialTheme.typography.displayMedium,
@@ -239,7 +248,7 @@ fun DrawImage(
     val textColor = MaterialTheme.colorScheme.onSurface
     Box(modifier = modifier) {
         Image(
-            painter = painterResource(place.photos.get(0)),
+            painter = painterResource(place.photos.first()),
             contentDescription = stringResource(place.nameRes),
             contentScale = ContentScale.Crop
         )
