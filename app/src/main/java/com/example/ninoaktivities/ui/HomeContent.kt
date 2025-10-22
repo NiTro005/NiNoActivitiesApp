@@ -116,7 +116,7 @@ fun ListAndDetailContent(
                     val orientation = index % 2 == 0
                     PlaceCard(
                         place = place,
-                        selected = uiState.currentPlace == place,
+                        selected = uiState.currentPlace!!.id == place.id,
                         orientation = orientation,
                         onCardPressed = { onCardPressed(place) },
                         onStarPressed = { onStarPressed(place) },
@@ -133,7 +133,7 @@ fun ListAndDetailContent(
         DetailScreen(
             place = uiState.currentPlace,
             onBackPressed = { (context  as? Activity)?.finish()},
-            modifier = Modifier.weight(1f),
+            modifier = Modifier.weight(1f).padding(vertical = 24.dp),
             isFullScreen = true
         )
     }
@@ -156,7 +156,8 @@ fun CityItemsHeader(modifier: Modifier = Modifier, scale: Float = 1f) {
             scaleX = scale,
             scaleY = scale
         ),
-        verticalAlignment = Alignment.CenterVertically) {
+        horizontalArrangement = Arrangement.Start,
+        verticalAlignment = Alignment.CenterVertically){
         Text(
             text = "NiNo",
             style = MaterialTheme.typography.displayMedium,

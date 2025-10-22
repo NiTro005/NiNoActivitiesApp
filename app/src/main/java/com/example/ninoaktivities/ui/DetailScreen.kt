@@ -6,22 +6,28 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.consumeWindowInsets
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -35,6 +41,7 @@ import com.example.ninoaktivities.data.model.KidFriendly
 import com.example.ninoaktivities.data.model.Mall
 import com.example.ninoaktivities.data.model.Park
 import com.example.ninoaktivities.data.model.Place
+import com.example.ninoaktivities.ui.utils.openMap
 
 @Composable
 fun DetailScreen(
@@ -43,11 +50,11 @@ fun DetailScreen(
     modifier: Modifier = Modifier,
     isFullScreen: Boolean = false
 ) {
-
+    val context = LocalContext.current
     BackHandler {
         onBackPressed()
     }
-    Column(modifier = modifier) {
+    Column(modifier = modifier.verticalScroll(rememberScrollState())) {
         if(place != null) {
             if (!isFullScreen) {
                 DetailScreenTop(
@@ -59,7 +66,9 @@ fun DetailScreen(
                 items(place.photos) { photo ->
                     Image(
                         painter = painterResource(photo),
-                        modifier = Modifier.height(250.dp).padding(end = 4.dp),
+                        modifier = Modifier
+                            .height(250.dp)
+                            .padding(end = 4.dp),
                         contentDescription = null,
                         contentScale = ContentScale.Inside
                     )
@@ -76,6 +85,16 @@ fun DetailScreen(
                     stringResource(place.description),
                     Modifier.padding(8.dp)
                 )
+                Spacer(Modifier.height(50.dp))
+                OutlinedButton(
+                    onClick = { openMap(context, place.address) },
+                    modifier = Modifier.align(Alignment.CenterHorizontally)
+                ) {
+                    Text(
+                        text = stringResource(R.string.onCart),
+                        style = MaterialTheme.typography.bodyMedium
+                    )
+                }
             }
         }
     }
@@ -133,7 +152,9 @@ fun DetailScreenTop(
                 contentDescription = stringResource(R.string.back)
             )
         }
-        Row(modifier = Modifier.fillMaxWidth().padding(14.dp)) {
+        Row(modifier = Modifier
+            .fillMaxWidth()
+            .padding(14.dp)) {
             Text(
                 text = title,
                 style = MaterialTheme.typography.displayLarge,

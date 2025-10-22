@@ -34,10 +34,8 @@ class MainActivity : ComponentActivity() {
                             .calculateEndPadding(layoutDirection)
                     )
                 ) {
-                    AppTheme {
-                        val windowSize = calculateWindowSizeClass(this)
-                        CityApp(windowSize = windowSize.widthSizeClass)
-                    }
+                    val windowSize = calculateWindowSizeClass(this)
+                    CityApp(windowSize = windowSize.widthSizeClass)
                 }
             }
         }

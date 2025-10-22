@@ -66,4 +66,6 @@
     <string name="kid_friendly">Места для детей</string>
     <string name="favorite">Избранное</string>
     <string name="back">Back</string>
+    <string name="onCart">Посмотреть на карте</string>
+    <string name="open_map">Открыть адрес в картах</string>
 </resources>

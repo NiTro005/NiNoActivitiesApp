@@ -33,6 +33,7 @@ import androidx.compose.material3.PermanentNavigationDrawer
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
@@ -68,7 +69,7 @@ fun HomeScreen(
     if(navigationType == CityNavigationType.DRAWER) {
         PermanentNavigationDrawer(
             drawerContent = {
-                PermanentDrawerSheet(modifier = Modifier.width(240.dp)) {
+                PermanentDrawerSheet(modifier = Modifier.width(300.dp)) {
                     CityNavigationDrawer(
                         currentItemType = uiState.currentIconType,
                         onTabPressed = onTabPressed,
@@ -215,9 +216,9 @@ fun CityNavigationDrawer(
     onTabPressed: (IconType) -> Unit,
     modifier: Modifier = Modifier
 ) {
-    Column(modifier = modifier) {
+    Column(modifier = modifier, horizontalAlignment = Alignment.Start) {
         CityItemsHeader(
-            modifier = Modifier.height(60.dp).fillMaxWidth(),
+            modifier = Modifier.height(50.dp),
             scale = 0.8f
         )
         for (item in navItemList) {
