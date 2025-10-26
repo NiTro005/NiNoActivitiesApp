@@ -13,7 +13,8 @@ import com.example.ninoaktivities.R
 val Montserrat = FontFamily(
     Font(R.font.montserrat_bold, weight = FontWeight.Bold),
     Font(R.font.montserrat_regular),
-    Font(R.font.montserrat_thin_italic, weight = FontWeight.Thin, style = FontStyle.Italic)
+    Font(R.font.montserrat_thin_italic, weight = FontWeight.Thin, style = FontStyle.Italic),
+    Font(R.font.montserrat_italic, style = FontStyle.Italic)
 )
 
 val Roboto = FontFamily(
@@ -26,32 +27,40 @@ val Roboto = FontFamily(
 val AppTypography = Typography(
     displayMedium = TextStyle(
         fontFamily = Montserrat,
-        fontWeight = FontWeight.Bold
+        fontWeight = FontWeight.Bold,
+        fontSize = 40.sp
+
     ),
     displaySmall = TextStyle(
         fontFamily = Montserrat,
-        fontWeight = FontWeight.Normal
+        fontWeight = FontWeight.Thin,
+        fontStyle = FontStyle.Italic,
+        fontSize = 25.sp
     ),
     headlineMedium = TextStyle(
         fontFamily = Montserrat,
-        fontWeight = FontWeight.Normal
+        fontWeight = FontWeight.Normal,
+        fontSize = 17.sp
     ),
     titleLarge = TextStyle(
         fontFamily = Montserrat,
-        fontWeight = FontWeight.Normal
+        fontWeight = FontWeight.Normal,
+        fontSize = 14.sp
     ),
     titleSmall = TextStyle(
         fontFamily = Montserrat,
         fontStyle = FontStyle.Italic,
-        fontWeight = FontWeight.Thin
+        fontSize = 12.sp
     ),
     bodyLarge = TextStyle(
         fontFamily = Roboto,
-        fontWeight = FontWeight.Normal
+        fontWeight = FontWeight.Normal,
+        fontSize = 14.sp
     ),
     labelMedium = TextStyle(
         fontFamily = Roboto,
-        fontWeight = FontWeight.Light
+        fontWeight = FontWeight.Light,
+        fontSize = 14.sp
     ),
 )
 
